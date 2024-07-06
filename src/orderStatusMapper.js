@@ -1,4 +1,4 @@
-export function getPublicOrderStatus(interrnalStatus) {
+export function getCustomerOrderStatus(interrnalStatus) {
   const processing = 'processing'
 
   const statusMap = {
