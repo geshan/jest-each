@@ -1,6 +1,7 @@
 import { getPublicOrderStatus } from '../src/orderStatusMapper.js';
 
 const orderStatuses = [
+  ['unknown', 'processing'],
   ['created', 'processing'],
   ['sent_to_warehouse', 'processing'],
   ['picked_at_warehouse', 'processing'],
@@ -11,15 +12,19 @@ const orderStatuses = [
 ];
 
 describe('orderStatusMapper', () => {
-  it('should return processing for creaetd', () => {
+  it('should return user status processing for unknown status', () => {
+    expect(getPublicOrderStatus('unknown')).toBe('processing');
+  });
+
+  it('should return user status processing for creaetd', () => {
     expect(getPublicOrderStatus('created')).toBe('processing');
   });
 
-  it('should return shipped for out for delivery', () => {
+  it('should return user status shipped for out for delivery', () => {
     expect(getPublicOrderStatus('out_for_delivery')).toBe('shipped');
   });
 
-  it('should return delivered for out for delivered', () => {
+  it('should return user status delivered for out for delivered', () => {
     expect(getPublicOrderStatus('delivered')).toBe('delivered');
   });
 
