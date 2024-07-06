@@ -30,11 +30,27 @@ describe('orderStatusMapper', () => {
 
   //now with each
 
-  it.each(orderStatuses)('should return %s for %s', (input, expected) => {
+  it.each(orderStatuses)('For %s it should return %s ', (input, expected) => {
     expect(getPublicOrderStatus(input)).toBe(expected);
   });
 
-  it.each(orderStatuses)('should show %s for %s', (input, expected) => {
+  test.each(orderStatuses)('For %s it should show %s', (input, expected) => {
+    expect(getPublicOrderStatus(input)).toBe(expected);
+  });
+
+  //tagged template literals each
+
+  it.each`
+    input              | expected
+    ${'unknown'}       | ${'processing'}
+    ${'created'}       | ${'processing'}
+    ${'sent_to_warehouse'} | ${'processing'}
+    ${'picked_at_warehouse'} | ${'processing'}
+    ${'sent_to_courier'} | ${'processing'}
+    ${'picked_up_by_courier'} | ${'shipped'}
+    ${'out_for_delivery'} | ${'shipped'}
+    ${'delivered'} | ${'delivered'}
+  `('should return with template - $expected for $input', ({ input, expected }) => {
     expect(getPublicOrderStatus(input)).toBe(expected);
   });
 });
